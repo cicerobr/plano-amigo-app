@@ -3,9 +3,12 @@ import { createClient } from '@supabase/supabase-js';
 import { hadeswebApi } from '@/lib/api';
 
 // GET /api/beneficiary/[id]/faturas/[duplicataId]?planId=123
-export async function GET(request: NextRequest, { params }: { params: { id: string; duplicataId: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string; duplicataId: string }> }
+) {
   try {
-    const { id, duplicataId } = params;
+    const { id, duplicataId } = await params;
     const { searchParams } = new URL(request.url);
     const planId = searchParams.get('planId');
 

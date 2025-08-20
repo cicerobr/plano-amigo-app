@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Require user token & create user-scoped client (RLS)
-    const hdrs = headers();
+    const hdrs = await headers();
     const authHeader = hdrs.get('authorization') || hdrs.get('Authorization');
     if (!authHeader?.startsWith('Bearer ')) {
       return NextResponse.json({ success: false, error: 'Não autenticado' }, { status: 401 });
